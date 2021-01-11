@@ -1,13 +1,14 @@
 {
-  "name": "TP-1-Node",
-  "version": "1.0.0",
-  "description": "",
-  "main": "app.js",
-  "scripts": {
-    "dev": "nodemon app.js"
-  },
-  "keywords": [],
-  "author": "Daniel Braz (@drzbraz)",
-  "license": "ISC",
-  "type": "module"
+    "name": "tp-1-node",
+    "version": "1.0.0",
+    "description": "",
+    "main": "app.js",
+    "scripts": {
+        "dev": "nodemon app.js",
+        "start": "node app.js"
+    },
+    "keywords": [],
+    "author": "Daniel Braz (@drzbraz)",
+    "license": "ISC",
+    "type": "module"
 }
