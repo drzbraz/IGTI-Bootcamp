@@ -113,11 +113,12 @@ async function findSmallNameCity() {
     const states = JSON.parse(await fs.readFile('./Estados.json', 'utf-8'))
     await printNameCitiesSmall(states)
 }
-createFile()
-// statesWithBigCities()
-// question()
+
 async function start() {
+    await createFile()
+    await statesWithBigCities()
     await findBigNameCity()
     await findSmallNameCity()
+    await question()
 }
 start()
