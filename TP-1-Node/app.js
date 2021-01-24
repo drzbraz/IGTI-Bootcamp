@@ -24,7 +24,7 @@ async function createFile() {
 }
 
 async function citiesInState(UF) {
-    const state = JSON.parse(await fs.readFile(`./states/${UF}`, 'utf-8'))
+    const state = JSON.parse(await fs.readFile(`./states/${UF}.json`, 'utf-8'))
 
     return state.cidades.length
 }
@@ -46,14 +46,16 @@ async function statesWithBigCities() {
             })
             .splice(0, 5)
     )
-
-    // for (let index = 0; index < citiesNumber.length; index++) {
-    //     if ()
-
-    //         const element = array[index];
-
-    // }
-    // console.log(citiesNumber)
+    console.log(
+        citiesNumber
+            .sort(function (a, b) {
+                return parseInt(a.split('-')[0]) - parseInt(b.split('-')[0])
+            })
+            .splice(0, 5)
+            .sort(function (a, b) {
+                return parseInt(b.split('-')[0]) - parseInt(a.split('-')[0])
+            })
+    )
 }
 
 async function question() {
@@ -64,6 +66,58 @@ async function question() {
     })
 }
 
+async function findBigNameCity() {
+    const states = JSON.parse(await fs.readFile('./Estados.json', 'utf-8'))
+    await printNameCitiesBig(states)
+}
+async function printNameCitiesBig(states) {
+    for (let index = 0; index < states.length; index++) {
+        // console.log(states[index].Sigla)
+        const cities = JSON.parse(
+            await fs.readFile(`./states/${states[index].Sigla}.json`, 'utf-8')
+        )
+        const city = cities.cidades
+            .sort(function (a, b) {
+                return parseInt(b.Nome.length - a.Nome.length)
+            })
+            .splice(0, 1)
+        // console.log(city.length)
+        console.log('\n--------------')
+        for (let j = 0; j < city.length; j++) {
+            // console.log(city[j])
+            console.log(`${city[j].Nome} - ${states[index].Sigla}`)
+        }
+    }
+}
+
+async function printNameCitiesSmall(states) {
+    for (let index = 0; index < states.length; index++) {
+        // console.log(states[index].Sigla)
+        const cities = JSON.parse(
+            await fs.readFile(`./states/${states[index].Sigla}.json`, 'utf-8')
+        )
+        const city = cities.cidades
+            .sort(function (a, b) {
+                return parseInt(a.Nome.length - b.Nome.length)
+            })
+            .splice(0, 1)
+        // console.log(city.length)
+        console.log('\n--------------')
+        for (let j = 0; j < city.length; j++) {
+            // console.log(city[j])
+            console.log(`${city[j].Nome} - ${states[index].Sigla}`)
+        }
+    }
+}
+async function findSmallNameCity() {
+    const states = JSON.parse(await fs.readFile('./Estados.json', 'utf-8'))
+    await printNameCitiesSmall(states)
+}
 createFile()
-statesWithBigCities()
+// statesWithBigCities()
 // question()
+async function start() {
+    await findBigNameCity()
+    await findSmallNameCity()
+}
+start()
